@@ -3,12 +3,21 @@ def merge_sort(list)
   if list.size > 1
     m = (list.size-1)/2
     a, b = merge_sort(list[0..m]), merge_sort(list[m+1..-1])
+    puts "a: #{a[0]}, b: #{b[0]}"
   else
     return list
   end
   sorted = Array.new
   (a.size + b.size).times do
-    sorted << a[0].to_i < b[0].to_i ? a.shift : b.shift
+    if (a.empty? && !b.empty?)
+      sorted += b
+      break
+    elsif (b.empty? && !a.empty?)
+      sorted += a
+      break
+    else
+      sorted << a[0] < b[0] ? a.shift : b.shift
+    end
   end
   sorted
 end
